@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Lab2_1DV409.Models.Contact>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Contact</h2>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <strong>
+                    @Html.DisplayFor(m => item.FirstName) @Html.DisplayFor(m => item.LastName) @Html.DisplayFor(m => item.EmailAddress)
+                    <span>
+                        @Html.ActionLink("Edit", "Edit", new { id= item.ContactID})
+
+                        @Html.ActionLink("Delete", "Delete", new { id= item.ContactID})
+
+                    </span>
+
+                </strong>
+            </li>
+        }
+
+    </ul>
+}
+
+<p>
+    @Html.ActionLink("Add new contact", "Create")
+</p>

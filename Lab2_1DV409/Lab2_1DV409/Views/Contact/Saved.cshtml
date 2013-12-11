@@ -1,0 +1,14 @@
+﻿@model Lab2_1DV409.Models.Contact
+
+@{
+    ViewBag.Title = "Save successful";
+}
+
+<h2>Saved contact</h2>
+
+<p>
+    @Model.FirstName @Model.LastName with the e-mail adress @Model.EmailAddress was saved in the database.
+</p>
+<p>
+    @Html.ActionLink("Back home", "Index")
+</p>
