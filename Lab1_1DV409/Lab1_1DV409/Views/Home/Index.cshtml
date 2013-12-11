@@ -1,0 +1,71 @@
+﻿@model Lab1_1DV409.Models.SecretNumber
+
+@{
+    ViewBag.Title = "FROM THE TOP ROPE";
+}
+
+<h2>Lab1</h2>
+
+<div>
+
+@if(Model.SessionExpired)
+{
+    <p>Previous session expired. New game created.</p>
+    Model.SessionExpired = false;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary("Validation failed.")
+    @Html.TextBoxFor(m => m.Guess)
+    <input type="submit" value="Submit" />
+}
+
+@switch (Model.LastGuessedNumber.Outcome)
+{
+    case Lab1_1DV409.Models.Outcome.High:
+        <p>Your guess was too high</p>;
+    break;
+    case Lab1_1DV409.Models.Outcome.Low:
+    <p>Your guess was too low</p>;
+    break;
+    case Lab1_1DV409.Models.Outcome.Oldguess:
+    <p>You've already guessed that.</p>;
+    break;
+    case Lab1_1DV409.Models.Outcome.NoMoreGuesses:
+    <p>You're out of guesses.</p>;
+    <p>The correct number was @Model.Number.</p>;
+    <form action="/"><input type="submit" value="Reset"/></form>
+    break;
+    case Lab1_1DV409.Models.Outcome.Right:
+    <p>You guessed correctly.</p>;
+    <p>It took you @Model.Count tries to do it</p>;
+    <form action="/"><input type="submit" value="Reset"/></form>
+    break;
+}
+
+<h3>Previous guesses: </h3>
+<ul>
+@for (int i = 0; i < Model.GuessedNumbers.Count; i++)
+{
+    <li>
+    <p>@Model.GuessedNumbers[i].Number.ToString()</p>
+    @switch (Model.GuessedNumbers[i].Outcome)
+    {
+        case Lab1_1DV409.Models.Outcome.High:
+        <p>Too high</p>;
+        break;
+        case Lab1_1DV409.Models.Outcome.Low:
+        <p>Too low</p>;
+        break;
+        case Lab1_1DV409.Models.Outcome.Right:
+        <p>Correct!</p>;
+        break;
+    }
+    </li>
+}
+</ul>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")

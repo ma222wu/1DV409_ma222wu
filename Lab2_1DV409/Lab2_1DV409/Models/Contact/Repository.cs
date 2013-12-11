@@ -33,15 +33,17 @@ namespace Lab2_1DV409.Models
         }
         public List<Contact> GetLastContacts(int count = 20)
         {
-            List<Contact> contacts = new List<Contact>();
-            List<Contact> dbContacts = m_entities.Contacts.ToList();
+            return m_entities.Contacts.OrderByDescending(c => c.ContactID).Take(count).OrderBy(c => c.ContactID).ToList();
 
-            for (int i = count+1; i > -1; i--)
-            {
-                contacts.Add(dbContacts[dbContacts.Count - (i + 1)]);
-            }
+            //List<Contact> contacts = new List<Contact>();
+            //List<Contact> dbContacts = m_entities.Contacts.ToList();
 
-            return contacts;
+            //for (int i = count+1; i > -1; i--)
+            //{
+            //    contacts.Add(dbContacts[dbContacts.Count - (i + 1)]);
+            //}
+
+            //return contacts;
         }
         public void Save()
         {
